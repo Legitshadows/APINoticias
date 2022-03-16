@@ -26,6 +26,27 @@ namespace APINoticias.Controllers
 
             return Ok(encontrado);
         }
+
+        // POST: api/<NoticiasController>
+        [HttpPost("APINoticias")]
+        public void Post([FromBody] Noticia value)
+        {
+            Noticia.AgregarNoticia(value);
+        }
+
+        // PUT: api/<NoticiasController>/5
+        [HttpPut("{id}")]
+        public IActionResult Put(string id, [FromBody] Noticia value)
+        {
+            bool resultado = Noticia.ActualizarNoticia(id, value);
+
+            if (!resultado)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
         
     }
 }
