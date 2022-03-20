@@ -2,7 +2,7 @@
 {
     public class Noticia
     {
-        #region
+        #region "Datos"
         public string Id { get; set; }
         public string Titulo { get; set; }
         public string Contenido { get; set; }
@@ -14,7 +14,7 @@
 
         #endregion
 
-        #region
+        #region "Metodos"
         public static IEnumerable<Noticia> ObtenerNoticias()
         {
             string fileName = @".\Models\Noticias.json";
@@ -23,18 +23,14 @@
                 System.Text.Json.JsonSerializer.Deserialize<List<Noticia>>(jsonString).ToList();
             return listaNoticias;
         }
-        #endregion
-
-        #region
+ 
         public static Noticia ObtenerNoticia(string id)
         {
             IEnumerable<Noticia> listaNoticias = ObtenerNoticias();
             Noticia encontrado = listaNoticias.Where(x => x.Id == id).SingleOrDefault();
             return encontrado;
         }
-        #endregion
 
-        #region
         public static void AgregarNoticia(Noticia value)
         {
             string fileName = @".\Models\Noticias.json";
@@ -43,9 +39,7 @@
             string jsonString = System.Text.Json.JsonSerializer.Serialize(listaNoticias);
             System.IO.File.WriteAllText(fileName, jsonString);
         }
-        #endregion
 
-        #region
         public static bool ActualizarNoticia(string id, Noticia value)
         {
             bool resultado = false;
@@ -62,6 +56,23 @@
                 encontrado.Fecha = value.Fecha;
                 encontrado.CantidadCaracteres = value.CantidadCaracteres;
                 encontrado.Autorizada = value.Autorizada;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize(listaNoticias);
+                System.IO.File.WriteAllText(fileName, jsonString);
+                resultado = true;
+            }
+            return resultado;
+        }
+
+        public static bool EliminarNoticia(string id)
+        {
+            bool resultado = false;
+            string fileName = @".\Models\Noticias.json";
+            List<Noticia> listaNoticias = ObtenerNoticias().ToList();
+            Noticia encontrado = listaNoticias.Where(x => x.Id == id).SingleOrDefault();
+
+            if (encontrado != null)
+            {
+                listaNoticias.Remove(encontrado);
                 string jsonString = System.Text.Json.JsonSerializer.Serialize(listaNoticias);
                 System.IO.File.WriteAllText(fileName, jsonString);
                 resultado = true;

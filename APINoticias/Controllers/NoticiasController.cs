@@ -47,6 +47,20 @@ namespace APINoticias.Controllers
 
             return Ok();
         }
+
+        // DELETE: api/<NoticiasController>/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            bool resultado = Noticia.EliminarNoticia(id);
+
+            if(!resultado)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
         
     }
 }
