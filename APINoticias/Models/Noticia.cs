@@ -79,6 +79,24 @@
             }
             return resultado;
         }
+
+        public static bool AutorizarNoticia(string id)
+        {
+            bool resultado = false;
+            string fileName = @".\Models\Noticias.json";
+            List<Noticia> listaNoticias = ObtenerNoticias().ToList();
+            Noticia encontrado = listaNoticias.Where(x => x.Id == id).SingleOrDefault();
+
+            if (encontrado != null)
+            {
+                encontrado.Autorizada = true;
+                string jsonString = System.Text.Json.JsonSerializer.Serialize(listaNoticias);
+                System.IO.File.WriteAllText(fileName, jsonString);
+                resultado = true;
+            }
+
+            return resultado;
+        }
         #endregion
     }
 }

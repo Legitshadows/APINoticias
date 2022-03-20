@@ -61,6 +61,21 @@ namespace APINoticias.Controllers
 
             return Ok();
         }
+
+        // api/<NoticiasController>/Autorizar/5
+        [HttpPut]
+        [Route("Autorizar/{id}")]
+        public IActionResult PutCambiarAutorizada(string id)
+        {
+            bool resultado = Noticia.AutorizarNoticia(id);
+
+            if (!resultado)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
         
     }
 }
