@@ -55,7 +55,6 @@
                 encontrado.Autores = value.Autores;
                 encontrado.Fecha = value.Fecha;
                 encontrado.CantidadCaracteres = value.CantidadCaracteres;
-                encontrado.Autorizada = value.Autorizada;
                 string jsonString = System.Text.Json.JsonSerializer.Serialize(listaNoticias);
                 System.IO.File.WriteAllText(fileName, jsonString);
                 resultado = true;

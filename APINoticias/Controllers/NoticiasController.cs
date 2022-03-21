@@ -11,6 +11,7 @@ namespace APINoticias.Controllers
         public IEnumerable<Noticia> Get()
         {
             return Noticia.ObtenerNoticias();
+
         }
 
         // GET: api/<NoticiasController>/5
@@ -31,6 +32,7 @@ namespace APINoticias.Controllers
         [HttpPost("APINoticias")]
         public void Post([FromBody] Noticia value)
         {
+            value.Autorizada = false;
             Noticia.AgregarNoticia(value);
         }
 
