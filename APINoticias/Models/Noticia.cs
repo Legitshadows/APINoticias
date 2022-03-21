@@ -20,14 +20,14 @@
             string fileName = @".\Models\Noticias.json";
             string jsonString = System.IO.File.ReadAllText(fileName);
             List<Noticia> listaNoticias =
-                System.Text.Json.JsonSerializer.Deserialize<List<Noticia>>(jsonString).ToList();
+                System.Text.Json.JsonSerializer.Deserialize<List<Noticia>>(jsonString).ToList(); 
             return listaNoticias;
         }
  
         public static Noticia ObtenerNoticia(string id)
         {
             IEnumerable<Noticia> listaNoticias = ObtenerNoticias();
-            Noticia encontrado = listaNoticias.Where(x => x.Id == id).SingleOrDefault();
+            Noticia encontrado = listaNoticias.Where(x => x.Id == id && x.Autorizada == true).SingleOrDefault();
             return encontrado;
         }
 

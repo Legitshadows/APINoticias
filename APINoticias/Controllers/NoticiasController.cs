@@ -10,7 +10,8 @@ namespace APINoticias.Controllers
         [HttpGet("APINoticias")] 
         public IEnumerable<Noticia> Get()
         {
-            return Noticia.ObtenerNoticias();
+            var autorizadas = Noticia.ObtenerNoticias().Where(x => x.Autorizada == true);
+            return autorizadas;
 
         }
 
@@ -19,13 +20,15 @@ namespace APINoticias.Controllers
         public IActionResult Get(string id)
         {
             Noticia encontrado = Noticia.ObtenerNoticia(id);
+            
 
             if (encontrado == null)
             {
-                return NotFound(null);
+               return NotFound(null);
             }
 
-            return Ok(encontrado);
+
+               return Ok(encontrado);
         }
 
         // POST: api/<NoticiasController>
